@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   CheckBox,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import { FIREBASE_AUTH } from '../firebase'
@@ -112,8 +113,12 @@ const SignUpScreen = ({ navigation }) => {
             {passwordCriteria.minLength ? "✔️" : "❌"} 6 characters minimum
           </Text>
         </View>
-        <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-          <Text style={styles.buttonText}>Sign Up</Text>
+        <TouchableOpacity style={styles.button} onPress={handleSignUp} disabled={loading}>
+          <>
+          {loading ? (<ActivityIndicator size="small" color="#222" />) : (
+            <Text style={styles.buttonText}>Sign Up</Text>
+          )}
+          </>
         </TouchableOpacity>
       </View>
       <View style={styles.footer}>

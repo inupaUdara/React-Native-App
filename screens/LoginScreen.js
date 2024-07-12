@@ -5,6 +5,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import { FIREBASE_AUTH } from "../firebase";
@@ -22,8 +23,11 @@ const LoginScreen = ({ navigation }) => {
       const user = await signInWithEmailAndPassword(auth, email, password)
       if (user) navigation.navigate("Welcome");
     } catch (error) {
-      console.log(error)
-      alert('Sign in failed: ' + error.message);
+      if (error.code === 'auth/invalid-credential') {
+        alert('Incorrect email or password.');
+      } else {
+        alert('Sign up failed: ' + error.message);
+      }
     }
     setLoading(false)
   };
@@ -52,8 +56,12 @@ const LoginScreen = ({ navigation }) => {
         <TouchableOpacity>
           <Text style={styles.forgotPassword}>Forgot Password?</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Sign In</Text>
+        <TouchableOpacity style={styles.button} onPress={handleLogin} disabled={loading}>
+        {loading ? (
+            <ActivityIndicator size="small" color="#222" />
+          ) : (
+            <Text style={styles.buttonText}>Sign In</Text>
+          )}
         </TouchableOpacity>
       </View>
       <View style={styles.footer}>

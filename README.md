@@ -9,21 +9,21 @@ To set up the project locally, follow these steps:
 **1. Clone the repository:**
 
 ```bash
-git clone https://github.com/inupaUdara/NodeJS-Weather-Reports-App.git
+git clone https://github.com/inupaUdara/React-Native-App.git
 ```
 
-**2. Install dependencies for backend:**
+**2. Install dependencies:**
 
 ```bash
 npm install
 ```
 
-**3. Set up MongoDB:**
+**3. Set up firebase:**
 
-- Create a MongoDB database and configure the connection in index.js.
+- Change firebase.js with your API key and other keys.
 
 **4. Run the development server:**
 
 ```bash
-npm run dev
+npx expo start
 ```

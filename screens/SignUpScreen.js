@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { FIREBASE_AUTH } from '../firebase'
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 const SignUpScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -46,8 +46,9 @@ const SignUpScreen = ({ navigation }) => {
     }
     setLoading(true)
     try {
-      const user = await createUserWithEmailAndPassword(auth, email, password)
-      if (user) navigation.navigate("Login");
+      const newUser = await createUserWithEmailAndPassword(auth, email, password)
+      await updateProfile(newUser.user, { displayName: name });
+      if (newUser) navigation.navigate("Login");
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         alert('The email address is already in use by another account.');

@@ -7,21 +7,25 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FIREBASE_AUTH } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { AuthContext } from "../utils/AuthContext";
 
 const LoginScreen = ({ navigation }) => {
+  const { setUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const auth = FIREBASE_AUTH;
 
   const handleLogin = async () => {
     setLoading(true)
     try {
-      const user = await signInWithEmailAndPassword(auth, email, password)
-      if (user) navigation.navigate("Welcome");
+      const userCredential = await signInWithEmailAndPassword(auth, email, password)
+      setUser(userCredential.user);
+      if (userCredential) navigation.navigate("Welcome");
     } catch (error) {
       if (error.code === 'auth/invalid-credential') {
         alert('Incorrect email or password.');

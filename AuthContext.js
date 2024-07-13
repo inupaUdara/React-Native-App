@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { FIREBASE_AUTH } from '../firebase';
+import { FIREBASE_AUTH } from './firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 

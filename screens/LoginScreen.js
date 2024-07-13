@@ -10,7 +10,7 @@ import {
 import React, { useState, useContext } from "react";
 import { FIREBASE_AUTH } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { AuthContext } from "../utils/AuthContext";
+import { AuthContext } from "../AuthContext";
 
 const LoginScreen = ({ navigation }) => {
   const { setUser } = useContext(AuthContext);
